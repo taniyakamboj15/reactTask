@@ -11,6 +11,8 @@ export interface Theme {
     primary: string;
     accent: string;
     border: string;
+    glass: string;
+    glassBorder: string;
   };
   blur: string;
 }

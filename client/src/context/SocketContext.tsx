@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import type { ReactNode } from 'react';
+import { useToast } from './ToastContext';
 
 interface SocketContextType {
   socket: Socket | null;
@@ -25,6 +26,7 @@ type SocketProviderProps = {
 export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const { addToast } = useToast();
 
   useEffect(() => {
     const socketUrl =
@@ -40,11 +42,20 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     socketInstance.on('connect', () => {
       if (debugSocket) console.log('Connected to socket server');
       setIsConnected(true);
+      addToast('Connected to server', 'success');
     });
 
-    socketInstance.on('disconnect', () => {
-      if (debugSocket) console.log('Disconnected from socket server');
+    socketInstance.on('disconnect', (reason) => {
+      if (debugSocket) console.log('Disconnected from socket server:', reason);
       setIsConnected(false);
+      addToast('Connection lost: ' + reason, 'error');
+    });
+
+    socketInstance.on('connect_error', (error) => {
+      if (debugSocket) console.error('Connection error:', error);
+      setIsConnected(false);
+      // Debounce or limit this in production to avoid spam
+      // addToast('Connection failed', 'error'); 
     });
 
     setSocket(socketInstance);

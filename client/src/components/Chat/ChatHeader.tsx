@@ -1,8 +1,9 @@
-import { Command } from 'lucide-react';
+import { Command, Moon, Sun } from 'lucide-react';
 import type { SingleValue } from 'react-select';
 import type { RoomOption } from '../../constants/rooms';
 import { ConnectionStatus } from './ConnectionStatus';
 import { RoomSelector } from './RoomSelector';
+import { useTheme } from '../../context/ThemeContext';
 
 type ChatHeaderProps = {
   isConnected: boolean;
@@ -12,6 +13,8 @@ type ChatHeaderProps = {
 };
 
 export const ChatHeader = ({ isConnected, rooms, currentRoom, onRoomChange }: ChatHeaderProps) => {
+  const { mode, toggleTheme } = useTheme();
+
   return (
     <div className="glass border-b border-white/5 p-4 flex items-center justify-between z-20 sticky top-0 backdrop-blur-xl">
       <div className="flex items-center gap-4">
@@ -19,14 +22,24 @@ export const ChatHeader = ({ isConnected, rooms, currentRoom, onRoomChange }: Ch
         <RoomSelector rooms={rooms} currentRoom={currentRoom} onChange={onRoomChange} />
       </div>
       
-      <div className="text-right">
-        <h1 className="text-text-primary font-bold text-xl tracking-tight flex items-center gap-2 justify-end">
-          <Command size={20} className="text-primary" /> 
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Developer's
-          </span>
-        </h1>
-        <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">Command Center</p>
+      <div className="flex items-center gap-6">
+        <button 
+          onClick={toggleTheme}
+          className="p-2 rounded-full hover:bg-white/5 transition-colors text-text-muted hover:text-primary"
+          title={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {mode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+
+        <div className="text-right">
+          <h1 className="text-text-primary font-bold text-xl tracking-tight flex items-center gap-2 justify-end">
+            <Command size={20} className="text-primary" /> 
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Developer's
+            </span>
+          </h1>
+          <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">Command Center</p>
+        </div>
       </div>
     </div>
   );
