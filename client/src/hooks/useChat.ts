@@ -30,21 +30,26 @@ export const useChat = (roomId: string) => {
     };
   }, [socket, roomId]);
 
+  const currentUserId = useMemo(() => {
+    return socket?.id ? `User-${socket.id.slice(0, 4)}` : undefined;
+  }, [socket?.id]);
+
   const sendMessage = useCallback(
     (content: string) => {
+      const senderId = currentUserId ?? 'Anonymous';
       socket?.emit('chat:message', {
         roomId,
         content,
-        sender: 'Me',
+        sender: senderId,
       });
     },
-    [socket, roomId]
+    [socket, roomId, currentUserId]
   );
 
   const clearMessages = useCallback(() => setMessages([]), []);
 
   return useMemo(
-    () => ({ messages, sendMessage, clearMessages }),
-    [messages, sendMessage, clearMessages]
+    () => ({ messages, sendMessage, clearMessages, currentUserId }),
+    [messages, sendMessage, clearMessages, currentUserId]
   );
 };

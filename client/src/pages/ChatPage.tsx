@@ -11,7 +11,7 @@ import type { SingleValue } from 'react-select';
 
 export const ChatPage = () => {
   const [activeRoom, setActiveRoom] = useState<RoomId>('general');
-  const { messages, sendMessage, clearMessages } = useChat(activeRoom);
+  const { messages, sendMessage, clearMessages, currentUserId } = useChat(activeRoom);
   const { isConnected, joinRoom } = useSocket();
   const [inputValue, setInputValue] = useState('');
 
@@ -49,6 +49,7 @@ export const ChatPage = () => {
 
       <MessageList 
         messages={messages}
+        currentUserId={currentUserId}
         roomIcon={currentRoom?.icon}
         roomLabel={currentRoom?.label}
       />

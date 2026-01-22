@@ -6,11 +6,12 @@ import type { IMessage } from '../../hooks/useChat';
 type MessageItemProps = {
   message: IMessage;
   index: number;
+  currentUserId?: string;
 };
 
-export const MessageItem = ({ message, index }: MessageItemProps) => {
+export const MessageItem = ({ message, index, currentUserId }: MessageItemProps) => {
   const isCommand = message.content.startsWith('/');
-  const isMe = message.sender === 'Me';
+  const isMe = message.sender === currentUserId || message.sender === 'Me'; // Keep 'Me' fallback just in case
 
   return (
     <motion.div

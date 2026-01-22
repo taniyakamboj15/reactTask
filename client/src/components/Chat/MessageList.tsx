@@ -7,11 +7,12 @@ import type { IMessage } from '../../hooks/useChat';
 
 type MessageListProps = {
   messages: IMessage[];
+  currentUserId?: string;
   roomIcon?: string;
   roomLabel?: string;
 };
 
-export const MessageList = ({ messages, roomIcon, roomLabel }: MessageListProps) => {
+export const MessageList = ({ messages, currentUserId, roomIcon, roomLabel }: MessageListProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const MessageList = ({ messages, roomIcon, roomLabel }: MessageListProps)
           if (msg.type === 'system') {
             return <SystemMessage key={idx} content={msg.content} index={idx} />;
           }
-          return <MessageItem key={idx} message={msg} index={idx} />;
+          return <MessageItem key={idx} message={msg} index={idx} currentUserId={currentUserId} />;
         })}
       </AnimatePresence>
       <div ref={messagesEndRef} />
