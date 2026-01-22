@@ -23,7 +23,7 @@ export const ChatHeader = ({ isConnected, rooms, currentRoom, onRoomChange }: Ch
         <h1 className="text-text-primary font-bold text-xl tracking-tight flex items-center gap-2 justify-end">
           <Command size={20} className="text-primary" /> 
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Antigravity
+            Developer's
           </span>
         </h1>
         <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">Command Center</p>

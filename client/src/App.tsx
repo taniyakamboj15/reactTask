@@ -11,14 +11,14 @@ const App = () => {
     <ThemeProvider>
       <SocketProvider>
         <TasksProvider>
-          <BrowserRouter>
-              <MainLayout>
-                  <Routes>
-                      <Route path="/" element={<ChatPage />} />
-                      <Route path="/dashboard" element={<DashboardPage />} />
-                  </Routes>
-              </MainLayout>
-          </BrowserRouter>
+        <BrowserRouter>
+            <MainLayout>
+                <Routes>
+                    <Route path="/" element={<ChatPage />} />
+                    <Route path="/dashboard" element={<DashboardPage />} />
+                </Routes>
+            </MainLayout>
+        </BrowserRouter>
         </TasksProvider>
       </SocketProvider>
     </ThemeProvider>

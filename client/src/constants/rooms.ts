@@ -7,8 +7,8 @@ export type RoomOption = {
 };
 
 export const ROOMS: RoomOption[] = [
-  { value: 'general', label: '# General', icon: '💬' },
-  { value: 'random', label: '# Random', icon: '🎲' },
-  { value: 'engineering', label: '# Engineering', icon: '⚡' },
+  { value: 'general', label: ' General', icon: '💬' },
+  { value: 'random', label: 'Random', icon: '🎲' },
+  { value: 'engineering', label: 'Engineering', icon: '⚡' },
 ];
 
